@@ -204,21 +204,15 @@
                 text-decoration: none;
             }
 
-            .logo-icon {
-                width: 40px;
-                height: 40px;
-                background: linear-gradient(
-                    135deg,
-                    var(--accent-green),
-                    var(--primary-teal)
-                );
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1.5rem;
-                font-weight: 800;
-                color: var(--primary-dark);
+            .logo-image {
+                width: 45px;
+                height: 45px;
+                filter: brightness(0) invert(1);
+                transition: filter 0.3s ease;
+            }
+
+            .logo:hover .logo-image {
+                filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(140deg);
             }
 
             .logo-text {
@@ -749,7 +743,7 @@
             <div class="container">
                 <nav class="nav">
                     <a href="#" class="logo">
-                        <div class="logo-icon">QA</div>
+                        <img src="MAIN_D.png" alt="QA Solutions Logo" class="logo-image">
                         <span class="logo-text">Solutions</span>
                     </a>
                     <ul class="nav-menu">
