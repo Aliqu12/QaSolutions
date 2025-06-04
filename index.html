@@ -27,7 +27,7 @@
             --secondary-darkest: #066b7a;
             
             /* Accent Color */
-            --accent-green: #b8ff78;
+            --accent-green: #5fe7c1;
             
             /* Neutral Colors */
             --white: #ffffff;
@@ -168,14 +168,29 @@
         }
 
         .logo {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             text-decoration: none;
         }
 
-        .logo .highlight {
-            color: var(--accent-green);
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-green), var(--primary-teal));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--white);
         }
 
         .nav-menu {
@@ -470,6 +485,50 @@
             min-height: 120px;
         }
 
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            accent-color: var(--primary-teal);
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        .checkbox-group a {
+            color: var(--primary-teal);
+            text-decoration: none;
+        }
+
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+
+        .btn:disabled {
+            background: var(--gray-300);
+            color: var(--gray-500);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn:disabled:hover {
+            background: var(--gray-300);
+            transform: none;
+            box-shadow: none;
+        }
+
         /* ===== FOOTER ===== */
         .footer {
             background: linear-gradient(135deg, var(--primary-darker), var(--primary-dark));
@@ -638,7 +697,8 @@
         <div class="container">
             <nav class="nav">
                 <a href="#" class="logo">
-                    QA <span class="highlight">Solutions</span>
+                    <div class="logo-icon">QA</div>
+                    <span class="logo-text">Solutions</span>
                 </a>
                 <ul class="nav-menu">
                     <li><a href="#home" class="nav-link">Home</a></li>
@@ -663,8 +723,8 @@
                     die Ihr Unternehmen in die digitale Zukunft führen.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#services" class="btn btn-accent">Unsere Services</a>
-                    <a href="#contact" class="btn btn-outline">Kostenlose Beratung</a>
+                    <a href="#contact" class="btn btn-accent">Projekt starten</a>
+                    <a href="#services" class="btn btn-outline">Unsere Services</a>
                 </div>
             </div>
         </div>
@@ -809,7 +869,7 @@
                         </li>
                     </ul>
                 </div>
-                <form class="contact-form">
+                <form class="contact-form" action="https://formspree.io/f/xyzjyqyw" method="POST" id="contactForm">
                     <div class="form-group">
                         <label for="name">Name *</label>
                         <input type="text" id="name" name="name" required>
@@ -826,7 +886,14 @@
                         <label for="message">Nachricht *</label>
                         <textarea id="message" name="message" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Nachricht senden</button>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacy" name="privacy" required>
+                        <label for="privacy">
+                            Ich habe die <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> 
+                            gelesen und stimme der Verarbeitung meiner Daten zu. *
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" disabled>Nachricht senden</button>
                 </form>
             </div>
         </div>
@@ -881,5 +948,57 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Form validation and button enabling
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const requiredFields = form.querySelectorAll('input[required], textarea[required]');
+            const privacyCheckbox = document.getElementById('privacy');
+
+            function validateForm() {
+                let allFieldsValid = true;
+                
+                // Check required text fields
+                requiredFields.forEach(field => {
+                    if (field.type !== 'checkbox' && !field.value.trim()) {
+                        allFieldsValid = false;
+                    }
+                });
+
+                // Check privacy checkbox
+                if (!privacyCheckbox.checked) {
+                    allFieldsValid = false;
+                }
+
+                // Enable/disable submit button
+                submitBtn.disabled = !allFieldsValid;
+            }
+
+            // Add event listeners to all form fields
+            requiredFields.forEach(field => {
+                field.addEventListener('input', validateForm);
+                field.addEventListener('change', validateForm);
+            });
+
+            privacyCheckbox.addEventListener('change', validateForm);
+
+            // Form submission handling
+            form.addEventListener('submit', function(e) {
+                if (submitBtn.disabled) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Show loading state
+                submitBtn.textContent = 'Wird gesendet...';
+                submitBtn.disabled = true;
+            });
+
+            // Initial validation
+            validateForm();
+        });
+    </script>
 </body>
 </html>
