@@ -448,10 +448,117 @@
                 font-weight: bold;
             }
 
+            /* ===== PROJECTS SECTION ===== */
+            .projects {
+                padding: var(--section-padding);
+                background-color: var(--white);
+            }
+
+            .projects-header {
+                text-align: center;
+                margin-bottom: 3rem;
+            }
+
+            .projects h2 {
+                color: var(--primary-dark);
+                margin-bottom: 1rem;
+            }
+
+            .projects-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .project-card {
+                background: var(--white);
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+                border: 1px solid var(--gray-200);
+            }
+
+            .project-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+            }
+
+            .project-image {
+                height: 200px;
+                background: linear-gradient(135deg, var(--secondary-teal), var(--secondary-dark-teal));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+
+            .project-image i {
+                font-size: 3rem;
+                color: var(--white);
+                opacity: 0.9;
+            }
+
+            .project-content {
+                padding: 2rem;
+            }
+
+            .project-card h3 {
+                color: var(--primary-dark);
+                margin-bottom: 1rem;
+                font-size: 1.25rem;
+            }
+
+            .project-card p {
+                color: var(--gray-600);
+                margin-bottom: 1.5rem;
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
+            .project-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .project-tag {
+                background: var(--gray-100);
+                color: var(--gray-700);
+                padding: 0.25rem 0.75rem;
+                border-radius: 12px;
+                font-size: 0.8rem;
+                font-weight: 500;
+            }
+
+            .project-link {
+                color: var(--primary-teal);
+                text-decoration: none;
+                font-weight: 600;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: color 0.3s ease;
+            }
+
+            .project-link:hover {
+                color: var(--accent-green);
+            }
+
+            .projects-cta {
+                text-align: center;
+            }
+
+            .projects-cta .btn {
+                margin-top: 1rem;
+            }
+
             /* ===== CONTACT SECTION ===== */
             .contact {
                 padding: var(--section-padding);
-                background-color: var(--white);
+                background-color: var(--gray-50);
             }
 
             .contact-content {
@@ -699,6 +806,10 @@
                     grid-template-columns: 1fr;
                 }
 
+                .projects-grid {
+                    grid-template-columns: 1fr;
+                }
+
                 .contact-content {
                     grid-template-columns: 1fr;
                     gap: 2rem;
@@ -913,6 +1024,111 @@
                             <li>Effizienzsteigerung</li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROJECTS SECTION ===== -->
+        <section id="projects" class="projects">
+            <div class="container">
+                <div class="projects-header">
+                    <h2>Unsere Projekte</h2>
+                    <p>Erfolgreiche KI-Automatisierungslösungen für moderne Unternehmen</p>
+                </div>
+                
+                <div class="projects-grid">
+                    <!-- Immobilien Management Agent -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3>Immobilienmanagement Agent</h3>
+                            <p>
+                                Intelligenter Agent für automatisierte Zahlungsverarbeitung, 
+                                Dokumentenmanagement und Mahnverfahren in der Immobilienwirtschaft.
+                            </p>
+                            <div class="project-tags">
+                                <span class="project-tag">KI-Analyse</span>
+                                <span class="project-tag">Automatisierung</span>
+                                <span class="project-tag">Finanzmanagement</span>
+                            </div>
+                            <a href="project-immobilien.html" class="project-link">
+                                Projekt ansehen <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Telegram Bot Agent -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fab fa-telegram-plane"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3>Telegram Automatisierungs-Bot</h3>
+                            <p>
+                                Vielseitiger Agent für E-Mail-Management, Cloud-Dokumentenverwaltung 
+                                und zentrale Steuerung aller digitalen Workflows.
+                            </p>
+                            <div class="project-tags">
+                                <span class="project-tag">Telegram Bot</span>
+                                <span class="project-tag">E-Mail Automation</span>
+                                <span class="project-tag">Cloud Management</span>
+                            </div>
+                            <a href="project-telegram.html" class="project-link">
+                                Projekt ansehen <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Data Analysis Agent -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3>Intelligente Datenanalyse</h3>
+                            <p>
+                                KI-gestützter Agent für automatische Datenanalyse, 
+                                Report-Erstellung und Identifikation von Trends und Anomalien.
+                            </p>
+                            <div class="project-tags">
+                                <span class="project-tag">Data Science</span>
+                                <span class="project-tag">Predictive Analytics</span>
+                                <span class="project-tag">Business Intelligence</span>
+                            </div>
+                            <a href="project-analytics.html" class="project-link">
+                                Projekt ansehen <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Customer Service Bot -->
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3>KI-Kundenservice Agent</h3>
+                            <p>
+                                Intelligenter Chatbot mit natürlicher Sprachverarbeitung für 
+                                24/7 Kundensupport und automatische Ticketerstellung.
+                            </p>
+                            <div class="project-tags">
+                                <span class="project-tag">Natural Language Processing</span>
+                                <span class="project-tag">24/7 Support</span>
+                                <span class="project-tag">Kundenservice</span>
+                            </div>
+                            <a href="project-customer-service.html" class="project-link">
+                                Projekt ansehen <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="projects-cta">
+                    <p>Interessiert an ähnlichen Lösungen für Ihr Unternehmen?</p>
+                    <a href="portfolio.html" class="btn btn-primary">Alle Projekte ansehen</a>
                 </div>
             </div>
         </section>
