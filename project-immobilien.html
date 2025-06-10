@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immobilienmanagement Agent - QA Solutions</title>
+    <meta name="description" content="KI-Agent für automatisiertes Immobilienmanagement: Kontoeingänge analysieren, Zahlungsdokumente aktualisieren und Mahnverfahren automatisieren.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ===== CSS CUSTOM PROPERTIES ===== */
+        :root {
+            --primary-dark: #1e2d60;
+            --primary-darker: #1a2040;
+            --primary-teal: #00c2b5;
+            --secondary-teal: #35b2a8;
+            --secondary-dark-teal: #1d9494;
+            --secondary-darkest: #066b7a;
+            --accent-green: #5fe7c1;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-900: #111827;
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --container-max-width: 1200px;
+            --section-padding: 80px 0;
+            --header-height: 80px;
+        }
+
+        /* ===== RESET AND BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            color: var(--gray-700);
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--gray-900);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        h3 {
+            font-size: 1.875rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-teal), var(--secondary-teal));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-green), var(--primary-teal));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 194, 181, 0.3);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-green);
+            color: var(--primary-dark);
+        }
+
+        .btn-accent:hover {
+            background-color: #4dd4ab;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(95, 231, 193, 0.4);
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-darker));
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            width: 45px;
+            height: 45px;
+            filter: brightness(0) invert(1);
+            transition: filter 0.3s ease;
+        }
+
+        .logo:hover .logo-image {
+            filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(140deg);
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-green);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 50%, var(--secondary-darkest) 100%);
+            padding: calc(var(--header-height) + 80px) 0 80px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--gray-200);
+        }
+
+        .project-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(95, 231, 193, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+        }
+
+        .project-icon i {
+            font-size: 3rem;
+            color: var(--accent-green);
+        }
+
+        /* ===== PROJECT DETAILS ===== */
+        .project-details {
+            padding: var(--section-padding);
+            background-color: var(--white);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .challenge-section, .solution-section, .benefits-section {
+            margin-bottom: 3rem;
+        }
+
+        .challenge-section h2, .solution-section h2, .benefits-section h2 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .tech-stack {
+            background: var(--gray-50);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        .tech-stack h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: var(--primary-teal);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .workflow-section {
+            background: var(--gray-50);
+            padding: var(--section-padding);
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .workflow-step {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--secondary-teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .workflow-step h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--secondary-teal), var(--secondary-dark-teal));
+            padding: var(--section-padding);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .workflow-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="MAIN_D.png" alt="QA Solutions Logo" class="logo-image">
+                    <span class="logo-text">Solutions</span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">Über uns</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="project-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h1>Immobilienmanagement Agent</h1>
+                <p class="subtitle">
+                    Intelligente Automatisierung für Zahlungsmanagement, Dokumentenverarbeitung 
+                    und Mahnverfahren in der Immobilienwirtschaft
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECT DETAILS ===== -->
+    <section class="project-details">
+        <div class="container">
+            <div class="details-grid">
+                <div class="main-content">
+                    <div class="challenge-section">
+                        <h2>Die Herausforderung</h2>
+                        <p>
+                            Immobilienunternehmen stehen vor der täglichen Herausforderung, hunderte von 
+                            Zahlungseingängen manuell zu überprüfen, zuzuordnen und zu dokumentieren. 
+                            Fehlende Zahlungen müssen identifiziert und entsprechende Mahnverfahren 
+                            eingeleitet werden - ein zeitaufwändiger und fehleranfälliger Prozess.
+                        </p>
+                        <ul class="features-list">
+                            <li>Manuelle Zuordnung von Zahlungseingängen zu Mietobjekten</li>
+                            <li>Zeitaufwändige Aktualisierung von Zahlungsdokumenten</li>
+                            <li>Verzögerte Erkennung von Zahlungsausfällen</li>
+                            <li>Ineffiziente Mahnverfahren</li>
+                            <li>Hoher Personalaufwand für Routineaufgaben</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-section">
+                        <h2>Unsere Lösung</h2>
+                        <p>
+                            Der KI-gestützte Immobilienmanagement Agent automatisiert den gesamten 
+                            Zahlungsverarbeitungsprozess. Durch intelligente Analyse von Kontoeingängen 
+                            und automatische Dokumentenaktualisierung wird die Effizienz um über 80% gesteigert.
+                        </p>
+                        <ul class="features-list">
+                            <li>Automatische Erkennung und Zuordnung von Zahlungseingängen</li>
+                            <li>Intelligente Aktualisierung von Mietzahlungsdokumenten</li>
+                            <li>Sofortige Identifikation fehlender Zahlungen</li>
+                            <li>Automatisierte Generierung und Versendung von Mahnschreiben</li>
+                            <li>Echtzeit-Dashboard für Zahlungsübersicht</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefits-section">
+                        <h2>Erzielte Vorteile</h2>
+                        <p>
+                            Durch die Implementierung unseres Agents konnten unsere Kunden signifikante 
+                            Verbesserungen in Effizienz und Genauigkeit erzielen:
+                        </p>
+                        <ul class="features-list">
+                            <li>80% Zeitersparnis bei der Zahlungsverarbeitung</li>
+                            <li>95% Reduzierung von manuellen Fehlern</li>
+                            <li>Sofortige Reaktion auf Zahlungsausfälle</li>
+                            <li>Vollständige Transparenz über alle Zahlungsvorgänge</li>
+                            <li>Drastische Reduzierung von Außenständen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="tech-stack">
+                        <h3>Technologie Stack</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">OCR Technology</span>
+                            <span class="tech-tag">API Integration</span>
+                            <span class="tech-tag">Database Management</span>
+                            <span class="tech-tag">Workflow Automation</span>
+                            <span class="tech-tag">Natural Language Processing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== WORKFLOW SECTION ===== -->
+    <section class="workflow-section">
+        <div class="container">
+            <h2>Automatisierter Workflow</h2>
+            <p>Der Agent arbeitet in vier intelligenten Schritten:</p>
+            
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <h3>Analyse der Kontoeingänge</h3>
+                    <p>
+                        Automatische Überwachung und Analyse aller eingehenden Zahlungen 
+                        mit intelligenter Erkennung von Verwendungszweck und Absender.
+                    </p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <h3>Zuordnung & Dokumentation</h3>
+                    <p>
+                        Präzise Zuordnung der Zahlungen zu entsprechenden Mietobjekten 
+                        und automatische Aktualisierung aller relevanten Dokumente.
+                    </p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <h3>Überwachung & Erkennung</h3>
+                    <p>
+                        Kontinuierliche Überwachung von Zahlungsfristen und sofortige 
+                        Identifikation von Zahlungsausfällen oder verspäteten Zahlungen.
+                    </p>
+                </div>
+
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <h3>Automatische Mahnverfahren</h3>
+                    <p>
+                        Bei fehlenden Zahlungen wird automatisch ein Mahnverfahren eingeleitet 
+                        mit personalisierten Mahnschreiben und Eskalationsstufen.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA SECTION ===== -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Bereit für Ihre eigene Automatisierungslösung?</h2>
+            <p>
+                Lassen Sie uns gemeinsam eine maßgeschneiderte KI-Lösung für Ihr Immobilienmanagement entwickeln. 
+                Steigern Sie Ihre Effizienz und reduzieren Sie manuelle Arbeitsschritte.
+            </p>
+            <div class="cta-buttons">
+                <a href="index.html#contact" class="btn btn-accent">Kostenloses Beratungsgespräch</a>
+                <a href="portfolio.html" class="btn btn-primary">Weitere Projekte</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

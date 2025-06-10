@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - QA Solutions</title>
+    <meta name="description" content="Entdecken Sie unsere erfolgreichen KI-Automatisierungsprojekte. Von Immobilienmanagement bis Telegram-Bots - innovative Lösungen für moderne Unternehmen.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ===== CSS CUSTOM PROPERTIES ===== */
+        :root {
+            /* Primary Colors */
+            --primary-dark: #1e2d60;
+            --primary-darker: #1a2040;
+            --primary-teal: #00c2b5;
+            
+            /* Secondary Colors */
+            --secondary-teal: #35b2a8;
+            --secondary-dark-teal: #1d9494;
+            --secondary-darkest: #066b7a;
+            
+            /* Accent Color */
+            --accent-green: #5fe7c1;
+            
+            /* Neutral Colors */
+            --white: #ffffff;
+            --black: #000000;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Font Family */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            
+            /* Spacing */
+            --container-max-width: 1200px;
+            --section-padding: 80px 0;
+            --header-height: 80px;
+        }
+
+        /* ===== RESET AND BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            color: var(--gray-700);
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--gray-900);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        h3 {
+            font-size: 1.875rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-teal), var(--secondary-teal));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-green), var(--primary-teal));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 194, 181, 0.3);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-green);
+            color: var(--primary-dark);
+        }
+
+        .btn-accent:hover {
+            background-color: #4dd4ab;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(95, 231, 193, 0.4);
+        }
+
+        /* ===== HEADER AND NAVIGATION ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-darker));
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            width: 45px;
+            height: 45px;
+            filter: brightness(0) invert(1);
+            transition: filter 0.3s ease;
+        }
+
+        .logo:hover .logo-image {
+            filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(140deg);
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-green);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 50%, var(--secondary-darkest) 100%);
+            padding: calc(var(--header-height) + 80px) 0 80px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%2300c2b5" fill-opacity="0.1" points="0,1000 1000,800 1000,1000"/></svg>') no-repeat center bottom;
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--gray-200);
+        }
+
+        /* ===== PORTFOLIO SECTION ===== */
+        .portfolio {
+            padding: var(--section-padding);
+            background-color: var(--gray-50);
+        }
+
+        .portfolio-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .portfolio h2 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+
+        .portfolio-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--secondary-teal), var(--secondary-dark-teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .portfolio-image i {
+            font-size: 4rem;
+            color: var(--white);
+            opacity: 0.9;
+        }
+
+        .portfolio-content {
+            padding: 2.5rem;
+        }
+
+        .portfolio-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .portfolio-card p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .portfolio-tag {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .portfolio-link {
+            color: var(--primary-teal);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .portfolio-link:hover {
+            color: var(--accent-green);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: linear-gradient(135deg, var(--primary-darker), var(--primary-dark));
+            color: var(--white);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-about h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            color: var(--gray-300);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links h4 {
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--gray-400);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-green);
+            color: var(--primary-dark);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                padding: calc(var(--header-height) + 40px) 0 40px;
+            }
+
+            .portfolio-card {
+                margin: 0 -10px;
+            }
+
+            .portfolio-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="MAIN_D.png" alt="QA Solutions Logo" class="logo-image">
+                    <span class="logo-text">Solutions</span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">Über uns</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Kontakt</a></li>
+                </ul>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Unsere KI-Automatisierungsprojekte</h1>
+                <p class="subtitle">
+                    Entdecken Sie innovative Lösungen, die wir für unsere Kunden entwickelt haben. 
+                    Von intelligenter Dokumentenverwaltung bis hin zu automatisierten Workflows.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PORTFOLIO SECTION ===== -->
+    <section class="portfolio">
+        <div class="container">
+            <div class="portfolio-header">
+                <h2>Erfolgreiche Automatisierungsprojekte</h2>
+                <p>Reale Anwendungsfälle, die Unternehmen dabei helfen, Zeit zu sparen und Effizienz zu steigern</p>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Immobilien Management Agent -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Immobilienmanagement Agent</h3>
+                        <p>
+                            Ein intelligenter Agent, der Kontoeingänge analysiert, Zahlungsdokumente aktualisiert 
+                            und automatisch Mahnverfahren einleitet. Vollständige Automatisierung des Zahlungsmanagements.
+                        </p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">KI-Analyse</span>
+                            <span class="portfolio-tag">Dokumentenmanagement</span>
+                            <span class="portfolio-tag">Automatische Workflows</span>
+                            <span class="portfolio-tag">Finanzmanagement</span>
+                        </div>
+                        <a href="project-immobilien.html" class="portfolio-link">
+                            Projekt details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Telegram Bot Agent -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <i class="fab fa-telegram-plane"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Telegram Automatisierungs-Bot</h3>
+                        <p>
+                            Vielseitiger Telegram-Agent für E-Mail-Management, Cloud-Dokumentenverwaltung 
+                            und weitere automatisierte Aufgaben. Zentrale Steuerung aller digitalen Workflows.
+                        </p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Telegram Integration</span>
+                            <span class="portfolio-tag">E-Mail Automation</span>
+                            <span class="portfolio-tag">Cloud Management</span>
+                            <span class="portfolio-tag">Multi-Task Agent</span>
+                        </div>
+                        <a href="project-telegram.html" class="portfolio-link">
+                            Projekt details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Data Analysis Agent -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Intelligente Datenanalyse</h3>
+                        <p>
+                            KI-gestützter Agent zur automatischen Analyse von Geschäftsdaten, 
+                            Erstellung von Reports und Identifikation von Trends und Anomalien.
+                        </p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Data Science</span>
+                            <span class="portfolio-tag">Predictive Analytics</span>
+                            <span class="portfolio-tag">Automatische Reports</span>
+                            <span class="portfolio-tag">Business Intelligence</span>
+                        </div>
+                        <a href="project-analytics.html" class="portfolio-link">
+                            Projekt details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Customer Service Bot -->
+                <div class="portfolio-card">
+                    <div class="portfolio-image">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>KI-Kundenservice Agent</h3>
+                        <p>
+                            Intelligenter Chatbot mit natürlicher Sprachverarbeitung für 24/7 Kundensupport, 
+                            automatische Ticketerstellung und Weiterleitung an Fachabteilungen.
+                        </p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Natural Language Processing</span>
+                            <span class="portfolio-tag">24/7 Support</span>
+                            <span class="portfolio-tag">Ticket Management</span>
+                            <span class="portfolio-tag">Kundenzufriedenheit</span>
+                        </div>
+                        <a href="project-customer-service.html" class="portfolio-link">
+                            Projekt details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>QA Solutions</h3>
+                    <p>
+                        Ihr Partner für moderne KI-Automatisierung, professionelle Webentwicklung 
+                        und innovative IT-Dienstleistungen. Wir bringen Ihr Unternehmen in die digitale Zukunft.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="index.html#services">KI-Automatisierung</a></li>
+                        <li><a href="index.html#services">Webentwicklung</a></li>
+                        <li><a href="index.html#services">Prozessverbesserung</a></li>
+                        <li><a href="index.html#contact">Beratung</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Rechtliches</h4>
+                    <ul>
+                        <li><a href="datenschutz.html">Datenschutz</a></li>
+                        <li><a href="#impressum">Impressum</a></li>
+                        <li><a href="#agb">AGB</a></li>
+                        <li><a href="index.html#contact">Kontakt</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 QA Solutions. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

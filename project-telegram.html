@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Automatisierungs-Bot - QA Solutions</title>
+    <meta name="description" content="Vielseitiger Telegram-Agent für E-Mail-Management, Cloud-Dokumentenverwaltung und automatisierte Workflows. Zentrale Steuerung aller digitalen Prozesse.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ===== CSS CUSTOM PROPERTIES ===== */
+        :root {
+            --primary-dark: #1e2d60;
+            --primary-darker: #1a2040;
+            --primary-teal: #00c2b5;
+            --secondary-teal: #35b2a8;
+            --secondary-dark-teal: #1d9494;
+            --secondary-darkest: #066b7a;
+            --accent-green: #5fe7c1;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-900: #111827;
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --container-max-width: 1200px;
+            --section-padding: 80px 0;
+            --header-height: 80px;
+        }
+
+        /* ===== RESET AND BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            color: var(--gray-700);
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--gray-900);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        h3 {
+            font-size: 1.875rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-teal), var(--secondary-teal));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-green), var(--primary-teal));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 194, 181, 0.3);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-green);
+            color: var(--primary-dark);
+        }
+
+        .btn-accent:hover {
+            background-color: #4dd4ab;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(95, 231, 193, 0.4);
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-darker));
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-image {
+            width: 45px;
+            height: 45px;
+            filter: brightness(0) invert(1);
+            transition: filter 0.3s ease;
+        }
+
+        .logo:hover .logo-image {
+            filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(140deg);
+        }
+
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-green);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-darker) 50%, var(--secondary-darkest) 100%);
+            padding: calc(var(--header-height) + 80px) 0 80px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--gray-200);
+        }
+
+        .project-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(95, 231, 193, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+        }
+
+        .project-icon i {
+            font-size: 3rem;
+            color: var(--accent-green);
+        }
+
+        /* ===== PROJECT DETAILS ===== */
+        .project-details {
+            padding: var(--section-padding);
+            background-color: var(--white);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .challenge-section, .solution-section, .benefits-section {
+            margin-bottom: 3rem;
+        }
+
+        .challenge-section h2, .solution-section h2, .benefits-section h2 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .tech-stack {
+            background: var(--gray-50);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .tech-stack h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: var(--primary-teal);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .features-section {
+            background: var(--gray-50);
+            padding: var(--section-padding);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-teal), var(--secondary-teal));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--secondary-teal), var(--secondary-dark-teal));
+            padding: var(--section-padding);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">
+                    <img src="MAIN_D.png" alt="QA Solutions Logo" class="logo-image">
+                    <span class="logo-text">Solutions</span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">Über uns</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="project-icon">
+                    <i class="fab fa-telegram-plane"></i>
+                </div>
+                <h1>Telegram Automatisierungs-Bot</h1>
+                <p class="subtitle">
+                    Vielseitiger KI-Agent für zentrale Steuerung von E-Mail-Management, 
+                    Cloud-Dokumentenverwaltung und weiteren automatisierten Workflows
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECT DETAILS ===== -->
+    <section class="project-details">
+        <div class="container">
+            <div class="details-grid">
+                <div class="main-content">
+                    <div class="challenge-section">
+                        <h2>Die Herausforderung</h2>
+                        <p>
+                            Moderne Unternehmen nutzen zahlreiche Tools für verschiedene Aufgaben: 
+                            E-Mail-Verwaltung, Cloud-Speicher, Dokumentenmanagement und weitere Services. 
+                            Die Verwaltung und Koordination dieser Tools kostet wertvolle Zeit und führt 
+                            zu ineffizienten Workflows.
+                        </p>
+                        <ul class="features-list">
+                            <li>Fragmentierte Tool-Landschaft ohne zentrale Steuerung</li>
+                            <li>Zeitaufwändiges Wechseln zwischen verschiedenen Anwendungen</li>
+                            <li>Manuelle Bearbeitung wiederkehrender Aufgaben</li>
+                            <li>Fehlende Automatisierung bei Routineprozessen</li>
+                            <li>Schwierige mobile Verwaltung verschiedener Services</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-section">
+                        <h2>Unsere Lösung</h2>
+                        <p>
+                            Der Telegram Automatisierungs-Bot fungiert als zentrale Kommandozentrale 
+                            für alle digitalen Workflows. Über einfache Telegram-Befehle können 
+                            komplexe Automatisierungen gesteuert und überwacht werden.
+                        </p>
+                        <ul class="features-list">
+                            <li>Zentrale Steuerung aller Services über Telegram</li>
+                            <li>Intelligente E-Mail-Verarbeitung und -Weiterleitung</li>
+                            <li>Automatisierte Cloud-Dokumentenverwaltung</li>
+                            <li>Echtzeit-Benachrichtigungen und Status-Updates</li>
+                            <li>Natürliche Sprachbefehle für komplexe Aufgaben</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefits-section">
+                        <h2>Erzielte Vorteile</h2>
+                        <p>
+                            Durch die Implementierung des Telegram-Bots konnten unsere Kunden 
+                            ihre Produktivität deutlich steigern:
+                        </p>
+                        <ul class="features-list">
+                            <li>70% Zeitersparnis bei wiederkehrenden Aufgaben</li>
+                            <li>Zentrale Steuerung aller Services von überall</li>
+                            <li>Automatisierte Workflows ohne manuelle Eingriffe</li>
+                            <li>Sofortige mobile Verfügbarkeit aller Funktionen</li>
+                            <li>Drastische Reduzierung von Medienbrüchen</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="tech-stack">
+                        <h3>Technologie Stack</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Telegram Bot API</span>
+                            <span class="tech-tag">AI/ML Integration</span>
+                            <span class="tech-tag">Cloud APIs</span>
+                            <span class="tech-tag">Email Protocols</span>
+                            <span class="tech-tag">Database Management</span>
+                            <span class="tech-tag">Webhook Integration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES SECTION ===== -->
+    <section class="features-section">
+        <div class="container">
+            <h2>Hauptfunktionen des Telegram-Bots</h2>
+            <p>Ein vielseitiger Agent mit umfangreichen Automatisierungsmöglichkeiten</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>E-Mail Manager</h3>
+                    <p>
+                        Automatische E-Mail-Verarbeitung, intelligente Kategorisierung, 
+                        Antwort-Templates und Weiterleitung basierend auf Inhalten und Prioritäten.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud-Dokumentenmanager</h3>
+                    <p>
+                        Automatisierte Verwaltung von Dokumenten in Google Drive, Dropbox oder OneDrive. 
+                        Intelligente Sortierung, Backup und Zugriffsverwaltung.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Terminmanagement</h3>
+                    <p>
+                        Automatische Kalenderintegration, Terminerinnerungen, Meeting-Setup 
+                        und Koordination mit externen Teilnehmern.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Reporting & Analytics</h3>
+                    <p>
+                        Automatische Generierung von Reports, Datenanalyse und 
+                        regelmäßige Status-Updates über alle überwachten Systeme.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Task Management</h3>
+                    <p>
+                        Intelligente Aufgabenverwaltung mit automatischer Prioritätssetzung, 
+                        Deadline-Tracking und Fortschrittsverfolgung.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>System Monitoring</h3>
+                    <p>
+                        Überwachung kritischer Systeme und Services mit sofortigen 
+                        Benachrichtigungen bei Ausfällen oder Anomalien.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA SECTION ===== -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Bereit für Ihren eigenen Telegram-Automatisierungs-Bot?</h2>
+            <p>
+                Lassen Sie uns einen maßgeschneiderten Bot entwickeln, der perfekt auf Ihre 
+                Geschäftsprozesse abgestimmt ist. Steigern Sie Ihre Produktivität durch intelligente Automatisierung.
+            </p>
+            <div class="cta-buttons">
+                <a href="index.html#contact" class="btn btn-accent">Kostenloses Beratungsgespräch</a>
+                <a href="portfolio.html" class="btn btn-primary">Weitere Projekte</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
