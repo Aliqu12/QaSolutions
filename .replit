@@ -19,10 +19,6 @@ args = "QA Solutions Server"
 task = "workflow.run"
 args = "Static Server"
 
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Fresh Server"
-
 [[workflows.workflow]]
 name = "QA Solutions Server"
 author = "agent"
@@ -39,15 +35,6 @@ author = "agent"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "python3 -m http.server 5000"
-waitForPort = 5000
-
-[[workflows.workflow]]
-name = "Fresh Server"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python3 -m http.server 5000 --bind 0.0.0.0"
 waitForPort = 5000
 
 [deployment]
